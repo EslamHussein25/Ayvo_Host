@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .progress-container { width: 100%; max-width: 400px; margin: 10px 0; display: none; }
+    .progress-bar { width: 0; height: 20px; background: #4caf50; transition: width 0.2s; }
+    .progress-track { background: #ddd; width: 100%; height: 20px; }
+  </style>
+</head>
+<body>
+  <section class="upload-page">
+    <h2>Upload Input Files</h2>
+    <div class="upload-section">
+      <label class="upload-label">Upload All your Files</label>
+      <input type="file" id="file-input" multiple />
+      <ul id="file-list"></ul>
+    </div>
+    <button id="real-upload-btn" class="upload-btn" disabled>Upload to Server</button>
+    <div class="progress-container" id="progress-container">
+      <div class="progress-track">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <span id="progress-label"></span>
+    </div>
+    <div id="upload-status"></div>
+  </section>
+
+  <script>
+    // Keep an array of all files selected so far
+    let allFiles = [];
+
+    const fileInput      = document.getElementById('file-input');
+    const fileList       = document.getElementById('file-list');
+    const realUploadBtn  = document.getElementById('real-upload-btn');
+    const progressContainer = document.getElementById('progress-container');
+    const progressBar    = document.getElementById('progress-bar');
+    const progressLabel  = document.getElementById('progress-label');
+    const uploadStatus   = document.getElementById('upload-status');
+
+    // Renders the names of all selected files
+    function renderFileList() {
+      fileList.innerHTML = '';
+      allFiles.forEach(file => {
+        const li = document.createElement('li');
+        li.textContent = file.name;
+        fileList.appendChild(li);
+      });
+      realUploadBtn.disabled = allFiles.length === 0;
+    }
+
+    // Appends any newly selected files (avoids duplicates by name)
+    fileInput.addEventListener('change', (e) => {
+      const newFiles = Array.from(e.target.files);
+
+      // Only add files not already chosen (by name and size)
+      for (const file of newFiles) {
+        if (!allFiles.some(f => f.name === file.name && f.size === file.size)) {
+          allFiles.push(file);
+        }
+      }
+      renderFileList();
+      fileInput.value = ''; // Allow picking the same files again if wanted
+    });
+
+    // Handles actual upload
+    realUploadBtn.addEventListener('click', () => {
+      if (allFiles.length === 0) return;
+
+      uploadStatus.textContent = "";
+      progressLabel.textContent = "";
+      progressBar.style.width = "0%";
+      progressContainer.style.display = "block";
+
+      const formData = new FormData();
+      // Append all files as 'files[]' array
+      allFiles.forEach(file => formData.append('files[]', file));
+
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', '/uploadFiles');
+      xhr.upload.onprogress = function (event) {
+        if (event.lengthComputable && event.total > 0) {
+          const percent = Math.round((event.loaded / event.total) * 100);
+          progressBar.style.width = percent + "%";
+          progressLabel.textContent = percent + "% uploaded";
+        }
+      };
+      xhr.onload = function () {
+        progressBar.style.width = "100%";
+        progressLabel.textContent = "Upload complete!";
+        uploadStatus.textContent = xhr.responseText || "Upload complete!";
+        setTimeout(() => progressContainer.style.display = "none", 1500);
+        // Optionally clear the list after upload success:
+        // allFiles = [];
+        // renderFileList();
+      };
+      xhr.onerror = function () {
+        uploadStatus.textContent = "Upload failed!";
+        progressContainer.style.display = "none";
+      };
+      xhr.send(formData);
+    });
+
+    renderFileList(); // Run at start to set disabled state
+  </script>
+</body>
+</html>

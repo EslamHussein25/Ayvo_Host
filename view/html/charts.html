@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Comparison Charts</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="charts-container">
+        <div class="charts-header">
+            <h1>LLM Model Performance Charts</h1>
+            <p>Visual comparison of model performance across different metrics</p>
+        </div>
+
+        <nav class="charts-tab-navigation">
+            <button class="charts-tab-btn active" data-chart="overall">Overall Performance</button>
+            <button class="charts-tab-btn" data-chart="faithfulness">Faithfulness</button>
+            <button class="charts-tab-btn" data-chart="answer-relevance">Answer Relevance</button>
+            <button class="charts-tab-btn" data-chart="context-relevance">Context Relevance</button>
+            <button class="charts-tab-btn" data-chart="correctness">Correctness</button>
+            <button class="charts-tab-btn" data-chart="category-comparison">Category Comparison</button>
+        </nav>
+
+        <main class="charts-content">
+            <div id="charts-loading" class="charts-loading">Loading chart data...</div>
+            <div id="chart-container" class="chart-container">
+                <canvas id="main-chart"></canvas>
+            </div>
+            <div id="chart-info" class="chart-info">
+                <h3 id="chart-title">Overall Performance Comparison</h3>
+                <p id="chart-description">Comparing overall scores across all LLM models</p>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/charts.js"></script>
+</body>
+</html>

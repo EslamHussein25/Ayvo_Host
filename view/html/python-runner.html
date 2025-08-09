@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Script Runner</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="python-runner-container">
+        <div class="python-header">
+            <h1>Python Script Execution</h1>
+            <p>Run your LLM evaluation Python scripts directly from the browser</p>
+        </div>
+
+        <div class="execution-controls">
+            <div class="script-section">
+                <h3>Run To show Results</h3>
+                <div class="script-buttons">
+                    <button id="run-main" class="script-btn primary">
+                        <span class="btn-icon">🐍</span>
+                        <div class="btn-content">
+                            <div class="btn-title">Run Stage 1 Only</div>
+                            <div class="btn-desc">Process documents & generate answers</div>
+                        </div>
+                    </button>
+                    
+                    <button id="run-test2" class="script-btn secondary">
+                        <span class="btn-icon">📊</span>
+                        <div class="btn-content">
+                            <div class="btn-title">Run Stage 2 Only</div>
+                            <div class="btn-desc">Execute model evaluation</div>
+                        </div>
+                    </button>
+                    
+                    <button id="run-both" class="script-btn success">
+                        <span class="btn-icon">⚡</span>
+                        <div class="btn-content">
+                            <div class="btn-title">Run All</div>
+                            <div class="btn-desc">Execute complete pipeline</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="status-section">
+                <h3>Execution Status</h3>
+                <div id="status-display" class="status-display">
+                    <div id="status-text" class="status-text">Ready to execute</div>
+                    <div id="status-progress" class="status-progress">
+                        <div id="progress-bar" class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="output-container">
+            <div class="output-header">
+                <h3>Script Output</h3>
+                <button id="clear-output" class="clear-btn">Clear Output</button>
+            </div>
+            <div id="output-display" class="output-display">
+                <div class="output-placeholder">
+                    Click a button above to run your Python scripts.<br>
+                    Output will appear here in real-time.
+                </div>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <h3>Generated Files</h3>
+            <div id="files-display" class="files-display">
+                <div class="files-placeholder">
+                    No files generated yet. Run scripts to see output files.
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden iframe for file operations -->
+        <iframe id="hidden-iframe" style="display: none;"></iframe>
+    </div>
+
+    <script src="../js/python-runner.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Comparison</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="compare-container">
+        <nav class="compare-tab-navigation">
+            <button class="compare-tab-btn active" data-sheet="Model Comparison">Model Comparison</button>
+            <button class="compare-tab-btn" data-sheet="Faithfulness Comparison">Faithfulness</button>
+            <button class="compare-tab-btn" data-sheet="Answer Relevance Comparison">Answer Relevance</button>
+            <button class="compare-tab-btn" data-sheet="Context Relevance Comparison">Context Relevance</button>
+            <button class="compare-tab-btn" data-sheet="correctness Comparison">Correctness</button>
+            <button class="compare-tab-btn" data-sheet="Overall Score Comparison">Overall Score</button>
+        </nav>
+
+        <main class="compare-content">
+            <div id="compare-table-container">
+                <div class="compare-table-wrapper">
+                    <table class="compare-results-table" id="compare-results-table">
+                        <thead id="compare-table-head"></thead>
+                        <tbody id="compare-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="../js/compare.js"></script>
+</body>
+</html>

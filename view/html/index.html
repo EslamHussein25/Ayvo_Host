@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LLM Evaluation Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div class="container">
+    <nav class="sidebar">
+      <button id="btn_upload" class="active">Upload Files</button>
+      <button id="btn_python">Run</button> 
+      <button id="btn_result">Results</button>
+      <button id="btn_compare">Compare</button>
+      <button id="btn_charts">Charts</button>
+    </nav>
+    <main class="main-content">
+      <iframe id="content-iframe" src="upload.html" frameborder="0"></iframe>
+    </main>
+  </div>
+  <script src="../js/main.js"></script>
+</body>
+</html>
